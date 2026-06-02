@@ -448,10 +448,12 @@ poolWithOnConnect.connect().then(client => {
 
 const poolWithVerify = new Pool({
     verify: (client, done) => {
-        client.query("SELECT 1").then(() => {
-            done();
-        }).catch((err: Error) => {
-            done(err);
-        });
+        done();
+    },
+});
+
+const poolWithVerifyError = new Pool({
+    verify: (_client, done) => {
+        done(new Error("connection failed"));
     },
 });
